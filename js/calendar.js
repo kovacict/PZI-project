@@ -111,9 +111,24 @@ function increaseMonth(event) {
 }
 
 function selectDay(event){
+  const wrapper=event.target.parentElement.parentElement.parentElement
+  const currentDate =
+    event.currentTarget.parentElement.parentElement.parentElement.querySelector(".current-date").innerText;
+  const currentDateArray = currentDate.split(" ");
+  let currentMonth = months.findIndex((month) => month == currentDateArray[0]);
   const allActiveDays=event.target.parentElement.querySelectorAll("li:not(.inactive)")
+  let currentYear = currentDateArray[1];
   allActiveDays.forEach(element => {
     element.classList.remove("active")
   });
   event.target.classList.add("active")
+  let currentDay = Number(event.currentTarget.parentElement.querySelector(".active").innerText)
+  const calendarDate=new Date(currentYear,currentMonth,currentDay+1)
+  const inputCalendar=wrapper.querySelector("input")
+  inputCalendar.valueAsDate=calendarDate
+
+  console.log(document.getElementById("start-date"),document.getElementById("end-date"))
+
 }
+
+console.log()

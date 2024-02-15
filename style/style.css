@@ -24,10 +24,11 @@ header #sign-out-button-container{
 }
 
 section{
+    display:flex;
     border: solid lightgray 2px;
     margin:1rem;
     padding:0.5rem;
-    color:black
+    color:black;
 }
 
 #create-pto-container{
@@ -57,7 +58,7 @@ div h1{
 
 input{
     padding: 0.5rem;
-    width: 30%;
+    width: 50%;
     margin:1rem;
     background-color: lightgray;
     border-radius: 0.5rem;
@@ -90,4 +91,8 @@ button{
     border:none;
     background-color: gray;
     color:white;
+}
+
+#start-date,#end-date{
+    display:none;
 }
