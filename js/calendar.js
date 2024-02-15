@@ -1,7 +1,7 @@
 const currentDate = document.querySelector(".current-date");
 const daysContainer = document.querySelector(".days");
-const previousMonthButton = document.getElementById("previous");
-const nextMonthButton = document.getElementById("next");
+const previousMonthButton = document.querySelector(".previous");
+const nextMonthButton = document.querySelector(".next");
 
 
 const months = [
