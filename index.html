@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/normalize.css" />
+    <link rel="stylesheet" href="./style/style.css" />
+    <link rel="stylesheet" href="./style/calendar.css" />
+
+    <title>PTO Manager</title>
+  </head>
+  <body>
+    <header>
+      <div>PTO Manager</div>
+      <div id="sign-out-button-container">
+        <button id="sign-out-button">Sign Out</button>
+      </div>
+      <div id="sign-in-button-container">
+        <a href="./sign-in.html"
+          ><button id="sign-in-button">Sign In</button></a
+        >
+      </div>
+    </header>
+    <main>
+      <div id="signed-out-display">
+        <div>
+          <p>Data unavailable for guest users.</p>
+          <p>Please sign in to see the data.</p>
+        </div>
+      </div>
+      <div id="signed-in-display">
+        <section id="create-pto-container">
+          <form>
+            <select name="employee" id="employee-select">
+              <option disabled="disabled" selected="selected">
+                Please select an employee
+              </option>
+            </select>
+
+            <div class="wrapper">
+              <header class="calendar-navigation">
+                <div class="icons previous"><</div>
+                <p class="current-date">February 2024</p>
+                <div class="icons next">></div>
+              </header>
+              <div class="calendar">
+                <ul class="week-days">
+                  <li>M</li>
+                  <li>T</li>
+                  <li>W</li>
+                  <li>T</li>
+                  <li>F</li>
+                  <li>S</li>
+                  <li>S</li>
+                </ul>
+                <ul class="days">
+                  <!--<li class="inactive">29</li>
+                  <li class="inactive">30</li>
+                  <li class="inactive">31</li>
+                  <li>1</li>
+                  <li>2</li>
+                  <li>3</li>
+                  <li>4</li>
+                  <li>5</li>
+                  <li>6</li>
+                  <li>7</li>
+                  <li>8</li>
+                  <li>9</li>
+                  <li>10</li>
+                  <li>11</li>
+                  <li>12</li>
+                  <li>13</li>
+                  <li>14</li>
+                  <li>15</li>
+                  <li>16</li>
+                  <li>17</li>
+                  <li>18</li>
+                  <li>19</li>
+                  <li>20</li>
+                  <li>21</li>
+                  <li>22</li>
+                  <li>23</li>
+                  <li>24</li>
+                  <li>25</li>
+                  <li>26</li>
+                  <li>27</li>
+                  <li>28</li>
+                  <li>29</li>
+                  <li class="inactive">1</li>
+                  <li class="inactive">2</li>
+                  <li class="inactive">3</li>
+                  <li class="inactive">4</li>
+                  <li class="inactive">5</li>
+                  <li class="inactive">6</li>
+                  <li class="inactive">7</li>
+                  <li class="inactive">8</li>
+                  <li class="inactive">9</li>
+                  <li class="inactive">10</li>-->
+                </ul>
+              </div>
+            </div>
+
+            <input type="date" id="start-date" />
+
+            <input type="date" id="end-date" />
+            <input type="submit" id="create-pto-button" />
+          </form>
+        </section>
+        <section id="employee-pto-container">
+          <div>EMPLOYEE PTO</div>
+        </section>
+        <section id="employee-details-conatiner">
+          <h2>Employee Details:</h2>
+          <!--<p>Employee's ID: </p>
+      <p>Employee's name: </p>
+      <p>Employee's username: </p>
+      <p>email: </p>
+      <table>
+        <caption>Address:</caption>
+        <thead>
+        <th>Street</th>
+        <th>Suite</th>
+        <th>City</th>
+        <th>Zipcode</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Street name</td>
+            <td>Suite name</td>
+            <td>City name</td>
+            <td>Zipcode</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Phone number: </p>
+      <p>Website: </p>-->
+        </section>
+        <script src="./js/index.js"></script>
+        <script src="./js/calendar.js"></script>
+      </div>
+    </main>
+  </body>
+</html>
