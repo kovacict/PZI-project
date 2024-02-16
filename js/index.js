@@ -12,7 +12,12 @@ const employeeDetailsContainer = document.getElementById(
   "employee-details-conatiner"
 );
 const createPTOForm = document.getElementById("create-pto-form");
-
+const summerImage =
+  "https://media.cnn.com/api/v1/images/stellar/prod/210316134738-02-wisdom-project-summer.jpg?q=w_3568,h_2006,x_0,y_0,c_fill";
+const winterImage =
+  "https://cdn.britannica.com/17/217417-138-6200BA99/Just-the-facts-winter-solstice.jpg?w=400&h=225&c=crop";
+const fallImage = "./images/fall.jpg";
+const springImage = "./images/spring.jpg";
 signOutButton.addEventListener("click", signOutUser);
 
 const loggedIn = document.cookie;
@@ -129,7 +134,9 @@ function handleCreatePTOButtonPress(event) {
   const startDate = new Date(startDateInput);
   const endDate = new Date(endDateInput);
   let ptoDuration = "";
-  let ptoClass=""
+  let ptoClass = "";
+  let dataContainer = "";
+  let imageLink = "";
   if (startDate > endDate) {
     const startDateGreaterThanEndDateWarning = document.getElementById(
       "start-date-greater-than-end-date-warning"
@@ -145,25 +152,29 @@ function handleCreatePTOButtonPress(event) {
     startDate: startDate.toDateString(),
     endDate: endDate.toDateString(),
   };
-  console.log(startDate == endDate,startDate,endDate);
   startDate.toString() === endDate.toString()
     ? (ptoDuration = `${
         months[startDate.getMonth()]
-      } ${startDate.getDate()} ${startDate.getFullYear()}`) && (ptoClass="employee-pto-date-single")
+      } ${startDate.getDate()} ${startDate.getFullYear()}`) &&
+      (ptoClass = "employee-pto-date-single")
     : (ptoDuration = `${
         months[startDate.getMonth()]
       } ${startDate.getDate()} ${startDate.getFullYear()} - ${
         months[endDate.getMonth()]
-      } ${endDate.getDate()} ${endDate.getFullYear()}`) && (ptoClass="employee-pto-date");
+      } ${endDate.getDate()} ${endDate.getFullYear()}`) &&
+      (ptoClass = "employee-pto-date");
+
+  dataContainer = decidePTOContainer(startDate, endDate);
+  imageLink = decideBackgroundImage(startDate.getMonth());
+  console.log(dataContainer, imageLink);
   const newPtoDataContainer = document.createElement("div");
   newPtoDataContainer.classList.add("employee-pto");
-  newPtoDataContainer.innerHTML = `<img
-  src="https://cdn.britannica.com/17/217417-138-6200BA99/Just-the-facts-winter-solstice.jpg?w=400&h=225&c=crop"
-/>
+  newPtoDataContainer.innerHTML = `<img src="${imageLink}"/>
 <i class="fa-solid fa-x x-icon"></i>
 <p class="${ptoClass}">${ptoDuration}</p>`;
-  const ptoDataContainer = document.getElementById("current-employee-pto");
+  const ptoDataContainer = document.getElementById(`${dataContainer}`);
   ptoDataContainer.appendChild(newPtoDataContainer);
+  removeUnusedPTOContainers();
 }
 
 function resetCalendars() {
@@ -177,3 +188,54 @@ function resetCalendars() {
   endDateInput.value = "";
 }
 
+function decidePTOContainer(startDate, endDate) {
+  const currentDate = new Date();
+
+  if (
+    (currentDate > startDate && currentDate < endDate) ||
+    (currentDate.toDateString() === startDate.toDateString() &&
+      currentDate.toDateString() === endDate.toDateString())
+  ) {
+    return "current-employee-pto";
+  } else if (currentDate > endDate) {
+    return "past-employee-pto";
+  } else {
+    return "upcoming-employee-pto";
+  }
+}
+
+function decideBackgroundImage(startMonth) {
+  switch (startMonth) {
+    case 0:
+    case 1:
+    case 2:
+      return winterImage;
+    case 3:
+    case 4:
+    case 5:
+      return springImage;
+    case 6:
+    case 7:
+    case 8:
+      return summerImage;
+    case 9:
+    case 10:
+    case 11:
+      return fallImage;
+
+    default:
+      console.error("Wrong input month!");
+      break;
+  }
+}
+
+function removeUnusedPTOContainers() {
+  const PTOContainer = document.querySelectorAll(".pto-container");
+  PTOContainer.forEach((element) => {
+    if (element.children.length < 2) {
+      element.style.display = "none";
+    } else {
+      element.style.display = "block";
+    }
+  });
+}

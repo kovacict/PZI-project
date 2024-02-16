@@ -121,6 +121,10 @@ img {
   color: red;
 }
 
+.pto-container{
+    display:none;
+}
+
 .employee-pto-date {
   color: white;
   position: absolute;
