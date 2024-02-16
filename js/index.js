@@ -1,4 +1,3 @@
-
 const signedOutDisplay = document.getElementById("signed-out-display");
 const signOutButtonContainer = document.getElementById(
   "sign-out-button-container"
@@ -12,6 +11,8 @@ const employeeSelector = document.getElementById("employee-select");
 const employeeDetailsContainer = document.getElementById(
   "employee-details-conatiner"
 );
+const createPTOForm = document.getElementById("create-pto-form");
+
 signOutButton.addEventListener("click", signOutUser);
 
 const loggedIn = document.cookie;
@@ -30,13 +31,11 @@ if (!loggedInValue[1]) {
     employeeSelector.addEventListener("change", displayEmployeeData);
     function displayEmployeeData(event) {
       if (employeeDetailsContainer.children.length > 1) {
-        console.log("jere");
         employeeDetailsContainer.removeChild(
           employeeDetailsContainer.lastChild
         );
       }
       const selectedEmployee = event.currentTarget.value;
-      console.log(selectedEmployee);
       for (let index = 0; index < value.length; index++) {
         const employee = value[index];
         if (employee.name === selectedEmployee) {
@@ -97,3 +96,84 @@ async function fetchEmployees() {
     console.log(error);
   }
 }
+
+createPTOForm.addEventListener("submit", handleCreatePTOButtonPress);
+
+function handleCreatePTOButtonPress(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const employee = formData.get("employee");
+  if (!employee) {
+    const noEmployeeWarning = document.getElementById(
+      "missing-employee-warning"
+    );
+    noEmployeeWarning.style.display = "block";
+    setTimeout(function () {
+      noEmployeeWarning.style.display = "none";
+    }, 5000);
+    return;
+  }
+  const startDateInput = document.getElementById("start-date").value;
+  const endDateInput = document.getElementById("end-date").value;
+  resetCalendars();
+  if (!endDateInput || !startDateInput) {
+    const missingDateWarningContainer = document.getElementById(
+      "missing-date-warning"
+    );
+    missingDateWarningContainer.style.display = "block";
+    setTimeout(function () {
+      missingDateWarningContainer.style.display = "none";
+    }, 5000);
+    return;
+  }
+  const startDate = new Date(startDateInput);
+  const endDate = new Date(endDateInput);
+  let ptoDuration = "";
+  let ptoClass=""
+  if (startDate > endDate) {
+    const startDateGreaterThanEndDateWarning = document.getElementById(
+      "start-date-greater-than-end-date-warning"
+    );
+    startDateGreaterThanEndDateWarning.style.display = "block";
+    setTimeout(function () {
+      startDateGreaterThanEndDateWarning.style.display = "none";
+    }, 5000);
+    return;
+  }
+  const newPtoData = {
+    employee: employee,
+    startDate: startDate.toDateString(),
+    endDate: endDate.toDateString(),
+  };
+  console.log(startDate == endDate,startDate,endDate);
+  startDate.toString() === endDate.toString()
+    ? (ptoDuration = `${
+        months[startDate.getMonth()]
+      } ${startDate.getDate()} ${startDate.getFullYear()}`) && (ptoClass="employee-pto-date-single")
+    : (ptoDuration = `${
+        months[startDate.getMonth()]
+      } ${startDate.getDate()} ${startDate.getFullYear()} - ${
+        months[endDate.getMonth()]
+      } ${endDate.getDate()} ${endDate.getFullYear()}`) && (ptoClass="employee-pto-date");
+  const newPtoDataContainer = document.createElement("div");
+  newPtoDataContainer.classList.add("employee-pto");
+  newPtoDataContainer.innerHTML = `<img
+  src="https://cdn.britannica.com/17/217417-138-6200BA99/Just-the-facts-winter-solstice.jpg?w=400&h=225&c=crop"
+/>
+<i class="fa-solid fa-x x-icon"></i>
+<p class="${ptoClass}">${ptoDuration}</p>`;
+  const ptoDataContainer = document.getElementById("current-employee-pto");
+  ptoDataContainer.appendChild(newPtoDataContainer);
+}
+
+function resetCalendars() {
+  const startDateInput = document.getElementById("start-date");
+  const endDateInput = document.getElementById("end-date");
+  const highlightedDays = document.querySelectorAll(".active");
+  highlightedDays.forEach((element) => {
+    element.classList.remove("active");
+  });
+  startDateInput.value = "";
+  endDateInput.value = "";
+}
+

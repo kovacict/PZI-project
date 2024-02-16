@@ -46,12 +46,11 @@ function displayCurrentDate(calendar, currentYear, currentMonth) {
   for (let index = 1; index < lastDateInAMonth + 1; index++) {
     const newDay = document.createElement("li");
     newDay.innerText = `${index}`;
-    newDay.addEventListener("click",selectDay)
+    newDay.addEventListener("click", selectDay);
     daysContainer.appendChild(newDay);
   }
   for (let index = lastDayOfMonth; index <= 6; index++) {
     const newDay = document.createElement("li");
-    //console.log(index);
     newDay.innerText = `${index - lastDayOfMonth + 1}`;
     newDay.classList.add("inactive");
     daysContainer.appendChild(newDay);
@@ -110,25 +109,25 @@ function increaseMonth(event) {
   );
 }
 
-function selectDay(event){
-  const wrapper=event.target.parentElement.parentElement.parentElement
+function selectDay(event) {
+  const wrapper = event.target.parentElement.parentElement.parentElement;
   const currentDate =
-    event.currentTarget.parentElement.parentElement.parentElement.querySelector(".current-date").innerText;
+    event.currentTarget.parentElement.parentElement.parentElement.querySelector(
+      ".current-date"
+    ).innerText;
   const currentDateArray = currentDate.split(" ");
   let currentMonth = months.findIndex((month) => month == currentDateArray[0]);
-  const allActiveDays=event.target.parentElement.querySelectorAll("li:not(.inactive)")
+  const allActiveDays =
+    event.target.parentElement.querySelectorAll("li:not(.inactive)");
   let currentYear = currentDateArray[1];
-  allActiveDays.forEach(element => {
-    element.classList.remove("active")
+  allActiveDays.forEach((element) => {
+    element.classList.remove("active");
   });
-  event.target.classList.add("active")
-  let currentDay = Number(event.currentTarget.parentElement.querySelector(".active").innerText)
-  const calendarDate=new Date(currentYear,currentMonth,currentDay+1)
-  const inputCalendar=wrapper.querySelector("input")
-  inputCalendar.valueAsDate=calendarDate
-
-  console.log(document.getElementById("start-date"),document.getElementById("end-date"))
-
+  event.target.classList.add("active");
+  let currentDay = Number(
+    event.currentTarget.parentElement.querySelector(".active").innerText
+  );
+  const calendarDate = new Date(currentYear, currentMonth, currentDay + 1);
+  const inputCalendar = wrapper.querySelector("input");
+  inputCalendar.valueAsDate = calendarDate;
 }
-
-console.log()
