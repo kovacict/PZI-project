@@ -28,18 +28,13 @@ for (let index = 0; index < calendars.length; index++) {
 function displayCurrentDate(calendar, currentYear, currentMonth) {
   const currentDate = calendar.querySelector(".current-date");
   const daysContainer = calendar.querySelector(".days");
-  const firstDayInAMonth = new Date(currentYear, currentMonth, 1).getDay();
+  let firstDayInAMonth = new Date(currentYear, currentMonth, 1).getDay();
   const lastDateInAMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const lastDateofLastMonth = new Date(currentYear, currentMonth, 0).getDate();
-  const lastDayOfMonth = new Date(
-    currentYear,
-    currentMonth,
-    lastDateInAMonth
-  ).getDay();
-
-  for (let index = firstDayInAMonth; index > 1; index--) {
+  firstDayInAMonth==0?firstDayInAMonth=6:[firstDayInAMonth=firstDayInAMonth-1]
+  for (let index = firstDayInAMonth; index > 0; index--) {
     const newDay = document.createElement("li");
-    newDay.innerText = `${lastDateofLastMonth - index + 2}`;
+    newDay.innerText = `${lastDateofLastMonth - index + 1}`;
     newDay.classList.add("inactive");
     daysContainer.appendChild(newDay);
   }
@@ -49,9 +44,9 @@ function displayCurrentDate(calendar, currentYear, currentMonth) {
     newDay.addEventListener("click", selectDay);
     daysContainer.appendChild(newDay);
   }
-  for (let index = lastDayOfMonth; index <= 6; index++) {
+  for (let index = 1; daysContainer.children.length < 42; index++) {
     const newDay = document.createElement("li");
-    newDay.innerText = `${index - lastDayOfMonth + 1}`;
+    newDay.innerText = `${index}`;
     newDay.classList.add("inactive");
     daysContainer.appendChild(newDay);
   }
@@ -71,7 +66,6 @@ function reduceMonth(event) {
   let currentMonth = months.findIndex((month) => month == currentDateArray[0]);
   let currentYear = currentDateArray[1];
   currentMonth = currentMonth - 1;
-  console.log(currentMonth, currentYear);
   if (currentMonth < 0) {
     currentMonth = 11;
     currentYear = Number(currentYear - 1);

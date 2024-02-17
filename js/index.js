@@ -40,13 +40,15 @@ if (!loggedInValue[1]) {
           employeeDetailsContainer.lastChild
         );
       }
+      removePTOs()
       const selectedEmployee = event.currentTarget.value;
-      for (let index = 0; index < value.length; index++) {
-        const employee = value[index];
-        if (employee.name === selectedEmployee) {
-          const employeeDetails = document.createElement("div");
+      const employee = value.find(
+        (employee) => employee.name == selectedEmployee
+      );
 
-          employeeDetails.innerHTML = `<p>ID: ${employee.id}</p>
+      const employeeDetails = document.createElement("div");
+
+      employeeDetails.innerHTML = `<p>ID: ${employee.id}</p>
                 <p>Name: ${employee.name}</p>
                 <p>Username: ${employee.username}</p>
                 <p>email: ${employee.email}</p>
@@ -69,11 +71,19 @@ if (!loggedInValue[1]) {
                 </table>
                 <p>Phone number: ${employee.phone}</p>
                 <p>Website: ${employee.website}</p>`;
-          employeeDetailsContainer.appendChild(employeeDetails);
-        }
-      }
+      employeeDetailsContainer.appendChild(employeeDetails);
     }
   });
+}
+
+function removePTOs(){
+  const PTOContainer=document.querySelectorAll(".pto-container")
+  PTOContainer.forEach(element => {
+    while(element.children.length>1){
+      element.removeChild(element.lastChild)
+    }
+  });
+  removeUnusedPTOContainers()
 }
 
 function signOutUser() {
@@ -133,10 +143,7 @@ function handleCreatePTOButtonPress(event) {
   }
   const startDate = new Date(startDateInput);
   const endDate = new Date(endDateInput);
-  let ptoDuration = "";
-  let ptoClass = "";
-  let dataContainer = "";
-  let imageLink = "";
+
   if (startDate > endDate) {
     const startDateGreaterThanEndDateWarning = document.getElementById(
       "start-date-greater-than-end-date-warning"
@@ -147,11 +154,21 @@ function handleCreatePTOButtonPress(event) {
     }, 5000);
     return;
   }
-  const newPtoData = {
+
+  const PTOData = {
     employee: employee,
     startDate: startDate.toDateString(),
     endDate: endDate.toDateString(),
   };
+  createPTO(startDate, endDate);
+  removeUnusedPTOContainers();
+}
+
+function createPTO(startDate, endDate) {
+  let ptoDuration = "";
+  let ptoClass = "";
+  let dataContainer = "";
+  let imageLink = "";
   startDate.toString() === endDate.toString()
     ? (ptoDuration = `${
         months[startDate.getMonth()]
@@ -173,8 +190,18 @@ function handleCreatePTOButtonPress(event) {
 <i class="fa-solid fa-x x-icon"></i>
 <p class="${ptoClass}">${ptoDuration}</p>`;
   const ptoDataContainer = document.getElementById(`${dataContainer}`);
+  const xButton = newPtoDataContainer.querySelector(".x-icon");
+  xButton.addEventListener("click", deletePTO);
   ptoDataContainer.appendChild(newPtoDataContainer);
-  removeUnusedPTOContainers();
+}
+
+function deletePTO(event) {
+  if (confirm("Do you want to delete the selected PTO?")) {
+    PTO = event.target.parentElement;
+    PTOContainer = PTO.parentElement;
+    PTOContainer.removeChild(PTO);
+    removeUnusedPTOContainers()
+  }
 }
 
 function resetCalendars() {
