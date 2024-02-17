@@ -58,6 +58,10 @@
   cursor: pointer;
 }
 
+.days .today{
+  color:red;
+}
+
 .days .inactive {
   color: gray;
 }
