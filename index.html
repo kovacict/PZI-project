@@ -1,57 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style/normalize.css" />
-    <link rel="stylesheet" href="./style/style.css" />
-    <link rel="stylesheet" href="./style/calendar.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <title>PTO Manager</title>
-  </head>
-  <body>
-    <header>
-      <div>PTO Manager</div>
-      <div id="sign-out-button-container">
-        <button id="sign-out-button">Sign Out</button>
-      </div>
-      <div id="sign-in-button-container">
-        <a href="./sign-in.html"
-          ><button id="sign-in-button">Sign In</button></a
-        >
-      </div>
-    </header>
-    <main>
-      <div id="signed-out-display">
-        <div>
-          <p>Data unavailable for guest users.</p>
-          <p>Please sign in to see the data.</p>
-        </div>
-      </div>
-      <div id="signed-in-display">
 
-        <section id="create-pto-container">
-          <form id="create-pto-form">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style/normalize.css" />
+  <link rel="stylesheet" href="./style/style.css" />
+  <link rel="stylesheet" href="./style/calendar.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>PTO Manager</title>
+</head>
+
+<body>
+  <header>
+    <div>PTO Manager</div>
+    <!--Button shows up when user is logged in-->
+    <div id="sign-out-button-container">
+      <button id="sign-out-button">Sign Out</button>
+    </div>
+    <!--Button disappears when user logs in-->
+    <div id="sign-in-button-container">
+      <a href="./sign-in.html"><button id="sign-in-button">Sign In</button></a>
+    </div>
+  </header>
+  <main>
+    <!--Information which user sees while they are not logged in-->
+    <div id="signed-out-display">
+      <div>
+        <p>Data unavailable for guest users.</p>
+        <p>Please sign in to see the data.</p>
+      </div>
+    </div>
+    <!--Information which user sees while tey are logged in-->
+    <div id="signed-in-display">
+      <!--This block houses the form, calendars and warnings which show up if the user makes an error-->
+      <section id="create-pto-container">
+        <form id="create-pto-form">
+          <div class="grid-item">
             <select name="employee" id="employee-select">
               <option disabled="disabled" selected="selected">
                 Please select an employee
               </option>
             </select>
-
+          </div>
+          <div class="grid-item" id="start-calendar">
             <div class="wrapper">
+              <!--Hidden date calendar which holds the start date-->
               <input type="date" id="start-date" />
+              <!--Holds the current year and month-->
               <header class="calendar-navigation">
                 <i class="fa-solid fa-arrow-left icons previous"></i>
                 <p class="current-date">February 2024</p>
                 <i class="fa-solid fa-arrow-right icons next"></i>
               </header>
               <div class="calendar">
+                <!--Contains the week-days-->
                 <ul class="week-days">
                   <li>M</li>
                   <li>T</li>
@@ -61,6 +66,7 @@
                   <li>S</li>
                   <li>S</li>
                 </ul>
+                <!--Contains the days of a month-->
                 <ul class="days">
                   <!--<li class="inactive">29</li>
                   <li class="inactive">30</li>
@@ -107,15 +113,19 @@
                 </ul>
               </div>
             </div>
-
+          </div>
+          <div class="grid-item" id="end-calendar">
             <div class="wrapper">
+              <!--Hidden date input which holds the end date-->
               <input type="date" id="end-date" />
+              <!--Displays current year and month-->
               <header class="calendar-navigation">
                 <i class="fa-solid fa-arrow-left icons previous"></i>
                 <p class="current-date">February 2024</p>
                 <i class="fa-solid fa-arrow-right icons next"></i>
               </header>
               <div class="calendar">
+                <!--Contains the week-days-->
                 <ul class="week-days">
                   <li>M</li>
                   <li>T</li>
@@ -125,20 +135,28 @@
                   <li>S</li>
                   <li>S</li>
                 </ul>
+                <!--Holds the days belonging to the month-->
                 <ul class="days">
                 </ul>
               </div>
             </div>
-            <h3 id="missing-employee-warning">Please select an employee.</h3>
-            <h3 id="missing-date-warning">Please select a start date and an end date.</h3>
-            <h3 id="start-date-greater-than-end-date-warning">The start date must not be greater than the ending date</h3>
-            <input type="submit" id="create-pto-button" value="Add PTO"/>
-          </form>
-        </section>
-        <section id="employee-pto-container">
-          <h2>Employee's PTOs:</h2>
-          <div id="past-employee-pto" class="pto-container">
-            <h3>Past PTO</h2>
+          </div>
+          <div class="grid-item">
+            <!--Submit element which triggers the create PTO event-->
+            <input type="submit" id="create-pto-button" value="Add PTO" />
+          </div>
+        </form>
+        <!--Warnings which show up when user makes a mistake-->
+        <h3 id="missing-employee-warning">Please select an employee.</h3>
+        <h3 id="missing-date-warning">Please select a start date and an end date.</h3>
+        <h3 id="start-date-greater-than-end-date-warning">The start date must not be greater than the ending date</h3>
+      </section>
+      <!--Displays employee's PTOs-->
+      <section id="employee-pto-container">
+        <h2>Employee's PTOs:</h2>
+        <!--Displays past employee's PTOs-->
+        <div id="past-employee-pto" class="pto-container">
+          <h3>Past PTO</h2>
             <!--<div class="employee-pto">
               <img
                 src="https://cdn.britannica.com/17/217417-138-6200BA99/Just-the-facts-winter-solstice.jpg?w=400&h=225&c=crop"
@@ -153,17 +171,20 @@
               <i class="fa-solid fa-x x-icon"></i>
               <p class="employee-pto-date">somethingsomethingsomething</p>
             </div>-->
-          </div>
-          <div id="current-employee-pto" class="pto-container">
-            <h3>Current PTO</h3>
-          </div>
-          <div id="upcoming-employee-pto" class="pto-container">
-            <h3>Upcoming PTO</h3>
-          </div>
-        </section>
-        <section id="employee-details-conatiner">
-          <h2>Employee Details:</h2>
-          <!--<p>Employee's ID: </p>
+        </div>
+        <!--Displays PTOs currently in progress-->
+        <div id="current-employee-pto" class="pto-container">
+          <h3>Current PTO</h3>
+        </div>
+        <!--Displays future PTOs-->
+        <div id="upcoming-employee-pto" class="pto-container">
+          <h3>Upcoming PTO</h3>
+        </div>
+      </section>
+      <!--Shows basic information about selected employee-->
+      <section id="employee-details-conatiner">
+        <h2>Employee Details:</h2>
+        <!--<p>Employee's ID: </p>
       <p>Employee's name: </p>
       <p>Employee's username: </p>
       <p>email: </p>
@@ -186,10 +207,11 @@
       </table>
       <p>Phone number: </p>
       <p>Website: </p>-->
-        </section>
-        <script src="./js/index.js"></script>
-        <script src="./js/calendar.js"></script>
-      </div>
-    </main>
-  </body>
+      </section>
+      <script src="./js/index.js"></script>
+      <script src="./js/calendar.js"></script>
+    </div>
+  </main>
+</body>
+
 </html>

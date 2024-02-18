@@ -4,7 +4,6 @@
   font-size: 0.6em;
   border-radius: 0.5em;
   padding-bottom: 0.5em;
-  margin: 0.5rem;
 }
 .wrapper header {
   border-radius: 0.5em;
@@ -19,21 +18,21 @@
 .calendar .days {
   padding-left: 0;
 }
-
+/*Create grid with seven columns, one culumn for each week-day*/
 .calendar ul {
   text-align: center;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
-
+/*Set style to where month and year show up*/
 .calendar-navigation {
   color: white;
   font-size: 1.5em;
   display: flex;
   flex-wrap: nowrap;
 }
-
+/*Make initials of week-days red*/
 .week-days {
   color: red;
 }
@@ -41,7 +40,7 @@
 .icons {
   padding: 0.2em;
 }
-
+/*Change background and pointer of arrow icon when hovering over*/
 .icons:hover {
   background-color: lightgray;
   border-radius: 50%;
@@ -51,21 +50,21 @@
 .days li {
   padding: 0.5em;
 }
-
+/*Change backgound and pointer when hovering over a number*/
 .days li:hover {
   background-color: white;
   border-radius: 50%;
   cursor: pointer;
 }
-
-.days .today{
-  color:red;
+/*If a date on calendar is same as today change color to red*/
+.days .today {
+  color: red;
 }
-
+/*If a day doesn't belong to this color make them gray*/
 .days .inactive {
   color: gray;
 }
-
+/*Upon clicking on a day which belongs to this month highlight it*/
 .days .active {
   background-color: gray;
   border-radius: 50%;

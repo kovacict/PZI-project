@@ -1,0 +1,50 @@
+/*Set font and color*/
+body {
+  color: white;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1.5rem;
+}
+header {
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+#sign-in-form-container {
+  width: 50%;
+  padding: 0.5rem;
+  margin: auto;
+  background-color: gray;
+  border-radius: 0.5rem;
+}
+#sign-in-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+/*Set width of text and password input to 100%*/
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+}
+/*Reduce width of submit element to 50%*/
+input {
+  padding: 0.5rem;
+  width: 50%;
+  margin: 1rem;
+  border: none;
+  background-color: lightgray;
+  border-radius: 0.5rem;
+}
+/*Hide warning text, it shows up when the user tries to log in using bad credentials*/
+#missing-field-warning {
+  color: red;
+  display: none;
+  text-align: center;
+}
+div h1 {
+  text-align: center;
+}

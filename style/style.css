@@ -1,3 +1,4 @@
+/*Set font and color*/
 body {
   color: white;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
@@ -5,6 +6,7 @@ body {
 }
 
 main {
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -17,15 +19,12 @@ header {
   padding: 0.5rem;
   margin-bottom: 1rem;
 }
-
+/*Hide sign out button when first loading the site*/
 header #sign-out-button-container {
   display: none;
 }
 
 section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border: solid lightgray 2px;
   margin: 1rem;
   padding: 0.5rem;
@@ -33,51 +32,24 @@ section {
 }
 
 #create-pto-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  text-align: center;
 }
-
-#sign-in-form-container {
-  width: 30%;
-  padding: 0.5rem;
-  margin: auto;
+/*Change look of submit button*/
+#create-pto-form input {
+  width: 9rem;
+  color: white;
+  border: none;
+  border-radius: 1rem;
   background-color: gray;
-  border-radius: 0.5rem;
 }
 
-#sign-in-form-container form {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
-
-div h1 {
-  text-align: center;
-}
-
-input {
-  padding: 0.5rem;
-  width: 50%;
-  margin: 1rem;
-  background-color: lightgray;
-  border-radius: 0.5rem;
-}
-
-input[type="text"],
-input[type="password"] {
-  width: 100%;
-}
-
-#missing-field-warning {
-  color: red;
-  display: none;
-  text-align: center;
-}
+/*Hide elements that show up when the user signs in*/
 #signed-in-display {
   display: none;
 }
+
+/*Show element which tells the user to sign in to access data*/
 #signed-out-display {
   color: black;
   margin: 1rem;
@@ -93,6 +65,7 @@ button {
   color: white;
 }
 
+/*Hide the start and end date inputs*/
 #start-date,
 #end-date {
   display: none;
@@ -100,13 +73,21 @@ button {
 
 #employee-pto-container {
   display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+#employee-details-conatiner {
+  display: grid;
+  align-items: center;
+  justify-content: center;
 }
 
 .employee-pto {
   position: relative;
   margin: 1rem;
 }
-
+/*Place text and x button over image element*/
 img {
   width: 500px;
   height: 100px;
@@ -122,27 +103,183 @@ img {
   color: red;
 }
 
-.pto-container{
-    display:none;
+.pto-container {
+  display: none;
 }
-
+/*Used when start and end date are different e.g. February 7 2024 - February 10 2024*/
 .employee-pto-date {
   color: white;
   position: absolute;
-  top: 20px;
-  right: 70px;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
-
+/*Used when start and end date are the same e.g. February 15 2024*/
 .employee-pto-date-single {
   color: white;
   position: absolute;
-  top: 20px;
-  right: 175px;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
-
+/*Hide different warning, they are displayed when the user makes some sort of error*/
 #missing-date-warning,
 #start-date-greater-than-end-date-warning,
 #missing-employee-warning {
   color: red;
   display: none;
+}
+
+/*Style the select input*/
+option:not([disabled]) {
+  background-color: lightgray;
+  border-radius: 1rem;
+  border-bottom: solid 1rem black;
+  color: black;
+}
+
+select {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 1rem;
+}
+
+select,
+select option[disabled="disabled"] {
+  background-color: gray;
+  color: white;
+}
+
+#create-pto-form select,
+#create-pto-form .wrapper,
+#create-pto-form input {
+  margin: 0.5rem;
+}
+/*Style the table element and children*/
+table caption {
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+table {
+  text-align: center;
+  border: solid gray 0.1rem;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border: solid gray 0.1rem;
+}
+/*Add gap between employee's details*/
+#employee-details-conatiner p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/*Center every item in grid*/
+#create-pto-form .grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*According to https://www.w3schools.com/css/css_rwd_mediaqueries.asp these are the
+typical device breakpoints*/
+/* Extra small devices (phones, 600px and down) */
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* Medium devices (landscape tablets, 768px and up) */
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (max-width: 600px) {
+  /*Create four rows, select, start date, end date and submit element each get one row*/
+  #create-pto-form {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .employee-pto {
+    position: relative;
+    margin: 1rem;
+  }
+  /*Change image, text and x button so that they fit on a smaller display*/
+  img {
+    width: 350px;
+    height: 50px;
+  }
+
+  .employee-pto .x-icon {
+    position: absolute;
+    right: -7px;
+    top: -10px;
+  }
+  .employee-pto-date {
+    font-size: medium;
+    color: white;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .employee-pto-date-single {
+    font-size: medium;
+    color: white;
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 991px) {
+  /*Create grid with two rows and two columns*/
+  #create-pto-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+  }
+  /*Place end date calendar in bottom-right cell*/
+  #end-calendar {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+  /*Place submit button in bottom-left cell*/
+  #create-pto-button {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  /*Otherwise create four columns*/
+  #create-pto-form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    justify-content: center;
+  }
 }
