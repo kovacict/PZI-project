@@ -1,3 +1,7 @@
+//Inspiration for the calendar came from https://www.codingnepalweb.com/dynamic-calendar-html-css-javascript/
+//And https://www.youtube.com/watch?v=Z1BGAivZRlE 
+//"Create A Dynamic Calendar in HTML CSS & JavaScript | Calendar in JavaScript" by CodingNepal
+
 //Get the container in which the days will be displayed
 const daysContainer = document.querySelectorAll(".days");
 

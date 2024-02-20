@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/normalize.css">
-    <link rel="stylesheet" href="./style/sign-in.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/normalize.css" />
+    <link rel="stylesheet" href="./style/sign-in.css" />
     <title>PTO Manager</title>
-</head>
-<body>
-  <header>
-    <div>PTO Manager</div>
-  </header>  
-  <div id="sign-in-form-container">
-    <h1>Sign In</h1>
-    <!--Warning shows up when user tries to log in with bad credentials-->
-    <h3 id="missing-field-warning">Please fill in both fields and make sure that the email and password are valid!</h3>
-    <form id="sign-in-form">
+  </head>
+  <body>
+    <header>
+      <div>PTO Manager</div>
+    </header>
+    <div id="sign-in-form-container">
+      <h1>Sign In</h1>
+      <!--Warning shows up when user tries to log in with bad credentials-->
+      <h3 id="missing-field-warning">
+        Please fill in both fields and make sure that the email and password are
+        valid!
+      </h3>
+      <form id="sign-in-form">
         <!--Test values: 
           email: value="example@test.com"
         password: value="1!qQasdf"-->
-        <input type="text" id="email" placeholder="email""> <br>
-        <input type="password" id="password" placeholder="password"> <br>
-        <input type="submit" id="sign-in-button" value="Sign In"> 
-    </form>
-  </div>
-  <script src="./js/sign-in.js"></script>
-</body>
+        <input type="text" id="email" placeholder="email""> <br />
+        <input type="password" id="password" placeholder="password" /> <br />
+        <input type="submit" id="sign-in-button" value="Sign In" />
+      </form>
+    </div>
+    <script src="./js/sign-in.js"></script>
+  </body>
 </html>

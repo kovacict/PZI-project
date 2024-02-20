@@ -30,11 +30,12 @@ const summerImage =
 const winterImage =
   "https://cdn.britannica.com/17/217417-138-6200BA99/Just-the-facts-winter-solstice.jpg?w=400&h=225&c=crop";
 
-  //Relative links for the fall and spring image
+//Relative links for the fall and spring image
 const fallImage = "./images/fall.jpg";
 const springImage = "./images/spring.jpg";
-
-
+//Apsolute links for the fall and spring image
+//Fall : https://www.almanac.com/sites/default/files/styles/or/public/image_nodes/fall-leaves-forest-Shairaa-SS.jpeg?itok=Qz0nVbxV
+//Spring : https://upload.wikimedia.org/wikipedia/commons/f/fb/XN_Fruehjahrswiese_00.jpg
 
 //Get the cookie
 const loggedIn = document.cookie;
@@ -44,7 +45,7 @@ const loggedInValue = loggedIn.split("=");
 if (!loggedInValue[1]) {
   signInButtonContainer.style.display = "block";
   signedInDisplay.style.display = "none";
-} 
+}
 
 //If the cookie has a value show the user the signed in display
 else {
@@ -52,7 +53,7 @@ else {
   signedInDisplay.style.display = "block";
   signOutButtonContainer.style.display = "block";
   signInButtonContainer.style.display = "none";
-  
+
   //Get the employees
   const result = fetchEmployees();
   result.then((value) => {
@@ -61,14 +62,14 @@ else {
 
     //Function used for displaying the data of the current employee
     function displayEmployeeData(event) {
-    //If the container in which the employee details are stored has someone's details remove them
+      //If the container in which the employee details are stored has someone's details remove them
       if (employeeDetailsContainer.children.length > 1) {
         employeeDetailsContainer.removeChild(
           employeeDetailsContainer.lastChild
         );
       }
       //Remove every PTO of the previous person if there were any
-      removePTOs()
+      removePTOs();
 
       //Get the employee in the select element
       const selectedEmployee = event.currentTarget.value;
@@ -79,7 +80,7 @@ else {
       );
 
       //Check if there are any PTOs in the local storage
-      checkLocalStorage(employee.name)
+      checkLocalStorage(employee.name);
 
       //Create new element with the employee's details and append it to the container
       const employeeDetails = document.createElement("div");
@@ -111,43 +112,42 @@ else {
   });
 }
 
-
 //Function used for searching if the employee has any PTOs in local storage
-function checkLocalStorage(name){
+function checkLocalStorage(name) {
   //Get local storage PTO list
-  const localStoragePTOData=localStorage.getItem("PTODataList")
+  const localStoragePTOData = localStorage.getItem("PTODataList");
 
   //If there is something in the local storage continue
-  if(localStoragePTOData){
+  if (localStoragePTOData) {
     //Create array from the JSON string
-    const PTOList=JSON.parse(localStoragePTOData)
+    const PTOList = JSON.parse(localStoragePTOData);
 
     //Check if there are any PTOs belonging to the employee
-    PTOList.forEach(element => {
-      if(element.employee===name){
+    PTOList.forEach((element) => {
+      if (element.employee === name) {
         //If there are display them
-        const startDate=new Date(element.startDate)
-        const endDate=new Date(element.endDate)
-        createPTO(startDate,endDate)
+        const startDate = new Date(element.startDate);
+        const endDate = new Date(element.endDate);
+        createPTO(startDate, endDate);
         //Remove PTO containers with no PTOs
-        removeUnusedPTOContainers()
+        removeUnusedPTOContainers();
       }
     });
   }
 }
 
 //Function used for removing PTOs from the containers
-function removePTOs(){
+function removePTOs() {
   //Get all the pto containers
-  const PTOContainer=document.querySelectorAll(".pto-container")
+  const PTOContainer = document.querySelectorAll(".pto-container");
   //Remove every PTO
-  PTOContainer.forEach(element => {
-    while(element.children.length>1){
-      element.removeChild(element.lastChild)
+  PTOContainer.forEach((element) => {
+    while (element.children.length > 1) {
+      element.removeChild(element.lastChild);
     }
   });
   //Hides the PTO containers with no PTOs
-  removeUnusedPTOContainers()
+  removeUnusedPTOContainers();
 }
 
 //Add event listener to the sign out button
@@ -155,10 +155,10 @@ signOutButton.addEventListener("click", signOutUser);
 
 //Function used for signing out the user
 function signOutUser() {
-  //Get a new date and reduce it 
+  //Get a new date and reduce it
   const expiredDate = new Date();
   expiredDate.setDate(expiredDate.getDate() - 30);
-  
+
   //Set the value of cookie to empty string and give it an expired date
   document.cookie = `userIsLoggedIn=; expires:${expiredDate}`;
   location.reload();
@@ -180,9 +180,8 @@ async function fetchEmployees() {
     }
     //Return the result of the fetch
     return result;
-  } 
-  //Log the error if it occurs
-  catch (error) {
+  } catch (error) {
+    //Log the error if it occurs
     console.log(error);
   }
 }
@@ -256,16 +255,16 @@ function handleCreatePTOButtonPress(event) {
   };
 
   //Get local storage data
-  const localStorageData=localStorage.getItem("PTODataList")
+  const localStorageData = localStorage.getItem("PTODataList");
 
   //If there is data in local storage parse it, if there isn't set value to empty array
-  const PTOList=localStorageData?JSON.parse(localStorageData):[]
+  const PTOList = localStorageData ? JSON.parse(localStorageData) : [];
 
   //Add new pto to array
-  PTOList.push(PTOData)
+  PTOList.push(PTOData);
 
   //Put new array into local storage
-  localStorage.setItem("PTODataList",JSON.stringify(PTOList))
+  localStorage.setItem("PTODataList", JSON.stringify(PTOList));
 
   //Create PTO with start and end dates
   createPTO(startDate, endDate);
@@ -274,7 +273,7 @@ function handleCreatePTOButtonPress(event) {
   removeUnusedPTOContainers();
 }
 
-//Function used for creating PTOs and displaying them 
+//Function used for creating PTOs and displaying them
 function createPTO(startDate, endDate) {
   let ptoDuration = "";
   let ptoClass = "";
@@ -324,53 +323,57 @@ function deletePTO(event) {
   //If the user agrees proceed
   if (confirm("Do you want to delete the selected PTO?")) {
     //Get employee in select element
-    const employee=document.getElementById("employee-select").value
+    const employee = document.getElementById("employee-select").value;
 
     //Get PTO element
     const PTO = event.target.parentElement;
-    
+
     //Get container in which it is displayed
     const PTOContainer = PTO.parentElement;
 
     //Get start and end date of PTO
-    const PTODuration=PTOContainer.querySelector("p").innerText
-    const durationList=PTODuration.split(" - ")
-    let startDate=""
-    let endDate=""
-    
+    const PTODuration = PTOContainer.querySelector("p").innerText;
+    const durationList = PTODuration.split(" - ");
+    let startDate = "";
+    let endDate = "";
+
     //If start and end dates are different
-    if(durationList.length>1){
-       startDate=new Date(durationList[0])
-       endDate=new Date(durationList[1])
+    if (durationList.length > 1) {
+      startDate = new Date(durationList[0]);
+      endDate = new Date(durationList[1]);
     }
 
     //If start and end dates are the same
-    else{
-       startDate=new Date(durationList[0])
-       endDate=new Date(durationList[0])
+    else {
+      startDate = new Date(durationList[0]);
+      endDate = new Date(durationList[0]);
     }
 
     //Get PTO data list from local storage
-    const localStoragePTOData=localStorage.getItem("PTODataList")
+    const localStoragePTOData = localStorage.getItem("PTODataList");
 
     //Turn it to an array
-    const PTOList=JSON.parse(localStoragePTOData)
+    const PTOList = JSON.parse(localStoragePTOData);
 
     //Remove PTO from the container
     PTOContainer.removeChild(PTO);
 
     //Find PTO in local storage
-    const index=PTOList.findIndex((element)=>
-    element.employee===employee&&startDate.toDateString()===element.startDate&&endDate.toDateString()===element.endDate)
-    
+    const index = PTOList.findIndex(
+      (element) =>
+        element.employee === employee &&
+        startDate.toDateString() === element.startDate &&
+        endDate.toDateString() === element.endDate
+    );
+
     //Remove PTO from local storage
-    PTOList.splice(index,1)
+    PTOList.splice(index, 1);
 
     //Send reduced array to local storage
-    localStorage.setItem("PTODataList",JSON.stringify(PTOList))
+    localStorage.setItem("PTODataList", JSON.stringify(PTOList));
 
     //If there are any PTO containers with no PTOs remove them
-    removeUnusedPTOContainers()
+    removeUnusedPTOContainers();
   }
 }
 
@@ -405,11 +408,11 @@ function decidePTOContainer(startDate, endDate) {
       currentDate.toDateString() === endDate.toDateString())
   ) {
     return "current-employee-pto";
-  } 
+  }
   //If current date is greater than end date return past employee pto container
   else if (currentDate > endDate) {
     return "past-employee-pto";
-  } 
+  }
   //Otherwise return upcoming employee pto container
   else {
     return "upcoming-employee-pto";
@@ -417,7 +420,7 @@ function decidePTOContainer(startDate, endDate) {
 }
 
 //Function used for choosing which image is placed in the background
-//According to the meterological season Winter starts on December 1., Spring starts on March 1., 
+//According to the meterological season Winter starts on December 1., Spring starts on March 1.,
 //Summer starts on June 1., Fall starts on September 1.
 function decideBackgroundImage(startMonth) {
   switch (startMonth) {
@@ -432,13 +435,13 @@ function decideBackgroundImage(startMonth) {
     case 3:
     case 4:
       return springImage;
-    
+
     //If start month is June, July or August return summer image
     case 5:
     case 6:
     case 7:
       return summerImage;
-    
+
     //If start month is September, October or November return fall image
     case 8:
     case 9:
@@ -455,7 +458,7 @@ function decideBackgroundImage(startMonth) {
 function removeUnusedPTOContainers() {
   //Get every PTO container
   const PTOContainer = document.querySelectorAll(".pto-container");
-  
+
   //Check every PTO container
   PTOContainer.forEach((element) => {
     //If it has no PTOs hide it

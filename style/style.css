@@ -207,7 +207,7 @@ typical device breakpoints*/
   /*Create four rows, select, start date, end date and submit element each get one row*/
   #create-pto-form {
     display: grid;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: 5rem 1fr 1fr 5rem;
     justify-content: center;
     align-items: center;
   }
