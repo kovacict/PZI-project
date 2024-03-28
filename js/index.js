@@ -24,18 +24,19 @@ const employeeDetailsContainer = document.getElementById(
 //Get the form element
 const createPTOForm = document.getElementById("create-pto-form");
 
+
 //Apsolute links for the summer and winter image
+//Insert two apsolute links for summer and winter
 const summerImage =
-  "https://media.cnn.com/api/v1/images/stellar/prod/210316134738-02-wisdom-project-summer.jpg?q=w_3568,h_2006,x_0,y_0,c_fill";
+  "";
 const winterImage =
-  "https://cdn.britannica.com/17/217417-138-6200BA99/Just-the-facts-winter-solstice.jpg?w=400&h=225&c=crop";
+  "";
 
 //Relative links for the fall and spring image
+//Insert two images into the images file and link them
 const fallImage = "./images/fall.jpg";
 const springImage = "./images/spring.jpg";
-//Apsolute links for the fall and spring image
-//Fall : https://www.almanac.com/sites/default/files/styles/or/public/image_nodes/fall-leaves-forest-Shairaa-SS.jpeg?itok=Qz0nVbxV
-//Spring : https://upload.wikimedia.org/wikipedia/commons/f/fb/XN_Fruehjahrswiese_00.jpg
+
 
 //Get the cookie
 const loggedIn = document.cookie;
